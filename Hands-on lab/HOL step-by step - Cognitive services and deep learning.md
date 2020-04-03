@@ -1,3 +1,4 @@
+<!--
 ![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png 'Microsoft Cloud Workshops')
 
 <div class="MCWHeader1">
@@ -252,3 +253,260 @@ To avoid unexpected charges, it is recommended that you clean up all of your lab
     ![The Notifications dialog box has a message stating that the resource group has been deleted.](media/image73.png 'Notifications dialog box')
 
 You should follow all steps provided _after_ attending the Hands-on lab.
+-->
+![Microsoft Cloud Workshops](https://github.com/Microsoft/MCW-Template-Cloud-Workshop/raw/master/Media/ms-cloud-workshop.png 'Microsoft Cloud Workshops')
+
+<div class="MCWHeader1">
+Cognitive Services と深層学習
+</div>
+
+<div class="MCWHeader2">
+ステップバイステップ式ハンズオン ラボ
+</div>
+
+<div class="MCWHeader3">
+2019 年 12 月
+</div>
+
+このドキュメントに記載されている情報 (URL や他のインターネット Web サイト参照を含む) は、将来予告なしに変更することがあります。別途記載されていない場合、このソフトウェアおよび関連するドキュメントで使用している会社、組織、製品、ドメイン名、電子メール アドレス、ロゴ、人物、場所、出来事などの名称は架空のものです。実在する商品名、団体名、個人名などとは一切関係ありません。お客様ご自身の責任において、適用されるすべての著作権関連法規に従ったご使用をお願いいたします。著作権法による制限に関係なく、マイクロソフトの書面による許可なしに、このドキュメントの一部または全部を複製したり、検索システムに保存または登録したり、別の形式に変換したりすることは、手段、目的を問わず禁じられています。ここでいう手段とは、複写や記録など、電子的、または物理的なすべての手段を含みます。
+
+マイクロソフトは、このドキュメントに記載されている内容に関し、特許、特許申請、商標、著作権、またはその他の無体財産権を有する場合があります。別途マイクロソフトのライセンス契約上に明示の規定のない限り、このドキュメントはこれらの特許、商標、著作権、またはその他の知的財産権に関する権利をお客様に許諾するものではありません。
+
+製造元名、製品名、URL は、情報提供のみを目的としており、これらの製造元またはマイクロソフトのテクノロジを搭載した製品の使用について、マイクロソフトは、明示的、黙示的、または法令によるいかなる表明も保証もいたしません。製造元または製品に対する言及は、マイクロソフトが当該製造元または製品を推奨していることを示唆するものではありません。掲載されているリンクは、外部サイトへのものである場合があります。これらのサイトはマイクロソフトの管理下にあるものではなく、リンク先のサイトのコンテンツ、リンク先のサイトに含まれているリンク、または当該サイトの変更や更新について、マイクロソフトは一切責任を負いません。リンク先のサイトから受信した Web キャストまたはその他の形式での通信について、マイクロソフトは責任を負いません。マイクロソフトは受講者の便宜を図る目的でのみ、これらのリンクを提供します。また、リンクの掲載は、マイクロソフトが当該サイトまたは当該サイトに掲載されている製品を推奨していることを示唆するものではありません。
+
+© 2019 Microsoft Corporation. All rights reserved.
+
+Microsoft および <https://www.microsoft.com/en-us/legal/intellectualproperty/Trademarks/Usage/General.aspx> (英語) に掲載されているその他の商標は、マイクロソフト グループ各社の商標です。その他すべての商標は、その所有者に帰属します。
+
+**このドキュメントの内容**
+
+- [Cognitive Services と深層学習に関するステップバイステップ式ハンズオン ラボ](#cognitive-services-と深層学習に関するステップバイステップ式ハンズオン-ラボ)
+  - [要約と学習目標](#要約と学習目標)
+  - [概要](#概要)
+  - [ソリューションのアーキテクチャ](#ソリューションのアーキテクチャ)
+  - [前提条件](#前提条件)
+  - [演習 1: Azure Notebooks プロジェクトのセットアップ](#演習-1-azure-notebooks-プロジェクトのセットアップ)
+    - [タスク 1: プロジェクト ファイルのアップロード](#タスク-1-プロジェクト-ファイルのアップロード)
+    - [タスク 2: Notebook Server の起動](#タスク-2-notebook-server-の起動)
+  - [演習 2: 教師なしモデルの作成と展開](#演習-2-教師なしモデルの作成と展開)
+    - [タスク 1: ライブラリのインストール](#タスク-1-ライブラリのインストール)
+    - [タスク 2: Summarization ノートブックの内容の確認と処理の実行](#タスク-2-summarization-ノートブックの内容の確認と処理の実行)
+    - [タスク 3: Azure Machine Learning ワークスペースのプロビジョニングと Summarization サービスの作成](#タスク-3-azure-machine-learning-ワークスペースのプロビジョニングと-summarization-サービスの作成)
+  - [演習 3: Keras モデルの作成と展開](#演習-3-keras-モデルの作成と展開)
+    - [タスク 1: Keras ベースのシンプルなモデルの作成](#タスク-1-keras-ベースのシンプルなモデルの作成)
+    - [タスク 2: Keras モデルの展開](#タスク-2-keras-モデルの展開)
+  - [演習 4: ソリューションを完成する](#演習-4-ソリューションを完成する)
+    - [タスク 1: Computer Vision API の展開](#タスク-1-computer-vision-api-の展開)
+    - [タスク 2: Text Analytics API の展開](#タスク-2-text-analytics-api-の展開)
+    - [タスク 3: ソリューションを完成する](#タスク-3-ソリューションを完成する)
+  - [ハンズオン ラボの後に](#ハンズオン-ラボの後に)
+    - [タスク 1: ラボのリソースのクリーンアップ](#タスク-1-ラボのリソースのクリーンアップ)
+
+# Cognitive Services と深層学習に関するステップバイステップ式ハンズオン ラボ<a name="cognitive-services-と深層学習に関するステップバイステップ式ハンズオン-ラボ"></a>
+
+## 要約と学習目標<a name="要約と学習目標"></a>
+
+このハンズオン ラボでは、事前構築済の人工知能 (AI) とカスタムの AI を組み合わせたソリューションを実装します。事前構築済の AI は、さまざまな Cognitive Services のかたちで利用し、カスタムの AI は、Azure Machine Learning サービスで開発および展開するサービスとして利用します。テキスト分析パイプラインを設計、実装して、非構造化テキスト データに基づくインテリジェント ソリューションを構築するスキルが身に付きます。また、テキスト データの分類に使用できるシンプルなニューラル ネットワークでバイナリ分類子を構築する方法や、Azure Machine Learning でさまざまな予防保全サービスを展開する方法、Cognitive Services の Computer Vision API や Text Analytics API と連携を行う方法についてもご説明します。
+
+このハンズオン ラボを修了すると、Azure Machine Learning サービスや Cognitive Services を活用したソリューションを実装できるようになります。
+
+## 概要<a name="概要"></a>
+
+Contoso Ltd. は、エージェントのクレーム処理の能力を強化するソリューションを構築するために、その方法を探る概念実証 (PoC) を実施します。このワークショップでは、この PoC をサポートします。
+
+## ソリューションのアーキテクチャ<a name="ソリューションのアーキテクチャ"></a>
+
+ソリューションのアーキテクチャの概要を以下の図に示します。このラボは、Azure Notebooks で実行するノートブックのコンテキスト内で実施されます。ラボでは、さまざまなノートブックを作成して、個々の Cognitive Services との連携のテストや、カスタムの機械学習サービスのトレーニングを行います。また、すべての AI サービスで処理したクレームの処理の結果をシンプルなユーザー インターフェイスで表示できるよう結果を集約する場合にも、ノートブックを使用します。
+
+![ソリューションのアーキテクチャの概要。Azure Databricks のノートブックでクレームを提出するところから処理が始まります。このノートブックでは、Computer Vision や Text Analytics、コンテナー化されたサービス (分類サービスおよび要約サービス) へのコールを調整します。これらのサービスはどちらもクレームのテキストを処理します。](media/image2.jpg 'High-level architectural solution')
+
+## 前提条件<a name="前提条件"></a>
+
+1. Microsoft Azure サブスクリプションが従量課金制または MSDN であること
+
+    - 試用版のサブスクリプションは使用できません。Azure のリソースのクォータ制限に関連した問題が発生します。
+
+    - 単一のリソース グループだけにしかアクセスできないサブスクリプションは使用できません。複数のリソース グループを展開できる必要があります。
+
+## 演習 1: Azure Notebooks プロジェクトのセットアップ<a name="演習-1-azure-notebooks-プロジェクトのセットアップ"></a>
+
+所要時間: 20 分
+
+この演習では、Azure Notebooks プロジェクトをセットアップします。
+
+### タスク 1: プロジェクト ファイルのアップロード<a name="タスク-1-プロジェクト-ファイルのアップロード"></a>
+
+1. [Azure Notebooks (英語)](https://notebooks.azure.com/) にログインします。
+
+2. [**My Projects (マイ プロジェクト)**] ページへ移動します。
+
+3. [**Upload GitHub Repo (GitHub リポジトリをアップロード)**] を選択します。
+
+4. [Upload GitHub Repository (GitHub リポジトリのアップロード)] ダイアログで、[GitHub repository (GitHub リポジトリ)] に 「**`https://github.com/microsoft/MCW-Cognitive-services-and-deep-learning.git`**」と入力し、[**Import (インポート)**] を選択します。しばらくすると、インポートが完了します。インポートが完了すると、ダイアログが閉じます。
+
+    ![プロジェクト リポジトリのアップロード先となる GitHub の URL がダイアログに表示されています。](images/az_nb_setup/01.png 'Upload GitHub Repository dialog box')
+
+### タスク 2: Notebook Server の起動<a name="タスク-2-notebook-server-の起動"></a>
+
+
+1. プロジェクトの `MCW-Cognitive-services-and-deep-learning` に移動します。
+
+2. 以下のツールバーに示す [**Play**] アイコンを選択し、`無料のコンピューティング`で Notebook Server を起動します。
+
+    ![この画像では、Notebook Server の起動アイコンが表示されており、選択する領域が強調表示されています。](images/az_nb_setup/02.png 'Start Notebook Server Icon')
+
+3. `MCW-Cognitive-services-and-deep-learning、[Hands-on lab (ハンズオン ラボ)]、ノートブック`のフォルダーの順に移動します。このフォルダーにラボのファイルがすべて格納されています。
+
+    ![Jupyter Notebook のインターフェース。ラボのファイルを格納しているフォルダーが表示されています。](images/az_nb_setup/03.png 'Jupyter Notebooks Folder')
+
+## 演習 2: 教師なしモデルの作成と展開<a name="演習-2-教師なしモデルの作成と展開"></a>
+
+所要時間: 60 分
+
+この演習では、訓練済のモデルでパラグラフの長いテキストを要約する Web サービスを作成、展開します。
+
+### タスク 1: ライブラリのインストール<a name="タスク-1-ライブラリのインストール"></a>
+
+ノートブックは、Keras や TensorFlow をはじめとする、Python の特定のライブラリに依存して動作します。以下の手順に従い、この依存関係を追加します。
+
+1. [`notebooks`] フォルダーで、「`00 init`」というノートブックを選択します。ノートブックが開くので、中のコードをチェックして実行します。
+
+2. ノートブックの個々のセルを実行して、必要なライブラリをインストールします。
+
+### タスク 2: Summarization ノートブックの内容の確認と処理の実行<a name="タスク-2-summarization-ノートブックの内容の確認と処理の実行"></a>
+
+
+1. [`notebooks`] フォルダーで、「`01 Summarize`」というノートブックを選択します。ノートブックが開くので、中のコードをチェックして実行します。
+
+2. ノートブックの先頭にある指示を読み、その内容に従ってセルを実行します。
+
+### タスク 3: Azure Machine Learning ワークスペースのプロビジョニングと Summarization サービスの作成<a name="タスク-3-azure-machine-learning-ワークスペースのプロビジョニングと-summarization-サービスの作成"></a>
+
+1. [`notebooks`] フォルダーで、「`02 Deploy Summarizer Web Service`」というノートブックを選択します。ノートブックが開くので、中のコードをチェックして実行します。
+
+2. ノートブックの先頭にある指示を読み、その内容に従ってセルを実行します。
+
+## 演習 3: Keras モデルの作成と展開<a name="演習-3-keras-モデルの作成と展開"></a>
+
+所要時間: 60 分
+
+この演習では、Keras を使用して、長・短期記憶 (LSTM) 回帰型ニューラル ネットワークと呼ばれる DNN の構築とトレーニングを行います。LSTM は、テキストの分類に関する問題の解決に大いに威力を発揮します。単語のベクトル化に使用する GloVe などの単語埋め込み機能と組み合わせて使用すると特に大きな効果を期待できます。GloVe による単語の埋め込みを単語類推のタスクで実行する方法についてもこのノートブックで学習します。
+
+### タスク 1: Keras ベースのシンプルなモデルの作成<a name="タスク-1-keras-ベースのシンプルなモデルの作成"></a>
+
+1. [`notebooks`] フォルダーで、「`03 Claim Classification`」というノートブックを選択します。ノートブックが開くので、中のコードをチェックして実行します。
+
+2. ノートブックの先頭にある指示を読み、その内容に従ってセルを実行します。
+
+   >**注**: ノートブックの先頭にある指示によく目を通し、TensorFlow と Keras の各ライブラリのバージョンをチェックしてください。TensorFlow のバージョンは 1.13.1 を、また、Keras のバージョンは 2.3.1 を使用されるようお勧めします。
+
+### タスク 2: Keras モデルの展開<a name="タスク-2-keras-モデルの展開"></a>
+
+1. [`notebooks`] フォルダーで、「`04 Deploy Classifier Web Service`」というノートブックを選択します。ノートブックが開くので、中のコードをチェックして実行します。
+
+2. ノートブックの先頭にある指示を読み、その内容に従ってセルを実行します。
+
+## 演習 4: ソリューションを完成する<a name="演習-4-ソリューションを完成する"></a>
+
+所要時間: 45 分
+
+この演習では、前に展開した Azure Machine Learning サービスに加え、Computer Vision API や Text Analytics API とも連携を行います。この作業により、PoC ソリューションが完成します。
+
+### タスク 1: Computer Vision API の展開<a name="タスク-1-computer-vision-api-の展開"></a>
+
+1. ブラウザーで、Azure ポータルに移動します。
+
+2. [**Create a resource (リソースを作成)**] を選択します。
+
+3. [**AI + Machine Learning (AI + 機械学習)**]、[**Computer Vision**] の順に選択します。\
+    ![この新規のブレードでは、[AI + Machine Learning (AI + 機械学習)] オプションが選択されています。](media/image19.png 'New blade')
+
+4. [**Create (作成)**] ブレードで、以下の値を入力します。
+
+    - **Name (名前)**: このインスタンスの一意の名前を入力します。
+
+    - **Subscription (サブスクリプション)**: お使いの Azure のサブスクリプションを選択します。
+
+    - **Location (拠点)**: 展開している他のサービスの最も近くにある拠点を選択します。
+
+    - **Pricing tier (料金レベル)**: S1 を選択します。
+
+    - **Resource group (リソース グループ)**: 既存の mcw-ai-lab リソース グループを選択します。
+
+    ![この [Create (作成)] ブレード フィールドには、事前定義された設定が表示されています。](media/image60.png 'Create blade')
+
+5. [**Create (作成)**] を選択します。
+
+6. 展開が正常に完了したことを知らせる通知が表示されたら、[**Go to resource (リソースへ移動)**] を選択します。
+
+    ![展開が正常に完了したことを知らせる通知。](media/image61.png 'Notification')
+
+7. [**Quick start (クイック スタート)**] を選択します。[**Key 1 (キー 1)**] と [**Endpoint (エンドポイント)**] の値は後で必要になるので、メモ帳などのソフトにコピーします。
+
+    ![この [Cognitive Services] ブレードでは、[Resource Management (リソースの管理)] で [Quick start (クイック スタート)] が選択されています。](media/image62.png 'Cognitive Services blade')
+
+### タスク 2: Text Analytics API の展開<a name="タスク-2-text-analytics-api-の展開"></a>
+
+
+1. ブラウザーで、Azure ポータルに移動します。
+
+2. [**Create a resource (リソースを作成)**] を選択します。
+
+3. [**AI + Machine Learning (AI + 機械学習)**]、[**Text Analytics**] の順に選択します。
+
+    ![この [New (新規)] ブレードでは、[AI + Machine Learning (AI + 機械学習)] と [Text Analytics API] が選択されています。](media/image64.png 'New blade')
+
+4. [**Create (作成)**] ブレードで、以下の値を入力します。
+
+    a. **Name (名前)**: このインスタンスの一意の名前を入力します。
+
+    b. **Subscription (サブスクリプション)**: お使いの Azure のサブスクリプションを選択します。
+
+    c. **Location (拠点)**: 展開している他のサービスの最も近くにある拠点を選択します。
+
+    d. **Pricing tier (料金レベル)**: S0 を選択します。
+
+    e. **Resource group (リソース グループ)**: 既存の mcw-ai-lab リソース グループを選択します。
+
+    ![Create (作成)] ブレード フィールドは、事前定義された設定に設定されています。](media/image65.png 'Create blade')
+
+5. [**Create (作成)**] を選択します。
+
+6. 展開が正常に完了したことを知らせる通知が表示されたら、[**Go to resource (リソースへ移動)**] を選択します。
+
+    ![展開が正常に完了したことを知らせる通知。](media/image66.png 'Notification')
+
+7. [**Quick start (クイック スタート)**] を選択します。[**Key 1 (キー 1)**] と [**Endpoint (エンドポイント)**] の値は後で必要になるので、メモ帳などのソフトにコピーします。
+
+    ![この [Cognitive Services] ブレードでは、[Resource Management (リソースの管理)] で [Quick start (クイック スタート)] が選択されています。](media/image67.png 'Cognitive Services blade')
+
+### タスク 3: ソリューションを完成する<a name="タスク-3-ソリューションを完成する"></a>
+
+1. Azure Notebooks プロジェクトに戻ります。[`notebooks`] フォルダーで、「`05 Cognitive Services`」というノートブックを選択します。ノートブックが開くので、中のコードをチェックして実行します。
+
+2. ノートブック内にある手順に従い、ラボを完了し、Cognitive Services と Azure Machine Learning サービスを組み合わせた結果を表示します。
+
+## ハンズオン ラボの後に<a name="ハンズオン-ラボの後に"></a>
+
+所要時間: 5 分
+
+予想外の料金が発生するのを避けるため、ラボを完了するときにラボのリソースすべてをクリーンアップするようお勧めします。
+
+### タスク 1: ラボのリソースのクリーンアップ<a name="タスク-1-ラボのリソースのクリーンアップ"></a>
+1. Azure ポータルへ移動し、このラボ用に作成した「`mcwailab`」リソース グループを特定します。
+
+2. コマンド バーで [**Delete resource group (リソース グループを削除)**] を選択します。
+
+    ![リソース グループを削除するボタンのスクリーンショット。](media/image71.png 'Delete resource group button')
+
+3. 表示される確認のダイアログでリソース グループの名前を入力し、[**Delete (削除)**] を選択します。
+
+4. リソース グループが正常に削除されるのを待ちます。確認を待つことなく、何らかの理由で削除が失敗した場合は、想定外のリソースが実行されたままになっている可能性があります。[Notifications (通知)] ダイアログを使用すると削除の状況を監視できます。このダイアログには、アラーム アイコンからアクセスできます。
+
+    ![リソース グループを削除中であることを知らせるメッセージが、[Notifications (通知)] ダイアログ ボックスに表示されています。](media/image72.png 'Notifications dialog box')
+
+5. 処理が正常に完了したことを知らせる通知が表示されたら、クリーンアップは完了です。
+
+    ![リソース グループの削除が完了したことを知らせるメッセージが、[Notifications (通知)] ダイアログ ボックスに表示されています。](media/image73.png 'Notifications dialog box')
+
+ハンズオン ラボの終了後に、この手順すべてを実行してください。
