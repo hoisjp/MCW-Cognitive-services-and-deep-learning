@@ -342,9 +342,7 @@ Contoso Ltd. は、エージェントのクレーム処理の能力を強化す�
 
 3. [**Upload GitHub Repo (GitHub リポジトリをアップロード)**] を選択します。
 
-4. [Upload GitHub Repository (GitHub リポジトリのアップロード)] ダイアログで、[GitHub repository (GitHub リポジトリ)] に 「**`https://github.com/microsoft/MCW-Cognitive-services-and-deep-learning.git`**」と入力し、[**Import (インポート)**] を選択します。しばらくすると、インポートが完了します。インポートが完了すると、ダイアログが閉じます。
-
-※ネットワークの環境によって、Internal Server Error が表示される場合がありますが、その場合は何度かインポートを試してみてください。
+4. [Upload GitHub Repository (GitHub リポジトリのアップロード)] ダイアログで、[GitHub repository (GitHub リポジトリ)] に 「**`https://github.com/microsoft/MCW-Cognitive-services-and-deep-learning.git`**」と入力し、[**Import (インポート)**] を選択します。しばらくすると、インポートが完了します。インポートが完了すると、ダイアログが閉じます。※ネットワークの環境によって、Internal Server Error が表示される場合がありますが、その場合は何度かインポートを試してみてください。
 
     ![プロジェクト リポジトリのアップロード先となる GitHub の URL がダイアログに表示されています。](images/az_nb_setup/01.png 'Upload GitHub Repository dialog box')
 
