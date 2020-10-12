@@ -198,7 +198,7 @@ Contoso Ltd. は、エージェントのクレーム処理の能力を強化す�
 
     e. **Resource group (リソース グループ)**: 既存の mcw-ai-lab リソース グループを選択します。
 
-    ![Create (作成)] ブレード フィールドは、事前定義された設定に設定されています。](media/image65.png 'Create blade')
+    ![Create (作成) ブレード フィールドは、事前定義された設定に設定されています。](media/image65.png 'Create blade')
 
 5. [**Create (作成)**] を選択します。
 
